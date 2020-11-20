@@ -3,6 +3,11 @@ project(DemoGafferExtension)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_VERBOSE_MAKEFILE OFF)
+# assuming there is a similar bug for ubuntu default compiler like this one:
+# https://github.com/GafferHQ/gaffer/issues/2540
+# snippet from the issue:
+# "...precompiled dependencies, they've got ...ABI=0 implicitly because that's the default on CentOS where I make the builds..."
+add_definitions(-D_GLIBCXX_USE_CXX11_ABI=0)
 
 if(APPLE)
   set(CMAKE_SHARED_LIBRARY_SUFFIX ".so")
