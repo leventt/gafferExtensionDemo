@@ -12,7 +12,13 @@ def __recursiveChildren( root ):
     return result
 
 
-def __upstreamFileNames( taskPlug ):
+# gathers all fileName parameters
+# from all the upstream nodes including parent
+# ASK: fileName parameter seems to be the convention
+# but it feels like there is a more generic way to get
+# FileSystemPath parameters somehow...
+# so it may need improvement
+def getTaskFileNames( taskPlug ):
 
     # ASK: may not be appropriate to handle gracefully
     # in case argument isn't a TaskPlug
@@ -37,14 +43,3 @@ def __upstreamFileNames( taskPlug ):
         )
 
     return result
-
-
-# gathers all fileName parameters
-# from all the upstream nodes including parent
-# ASK: fileName parameter seems to be the convention
-# but it feels like there is a more generic way to get
-# FileSystemPath parameters somehow...
-# so it may need improvement
-def getTaskFiles( taskPlug ):
-    
-    __upstreamFileNames( taskPlug )
