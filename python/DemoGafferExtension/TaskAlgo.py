@@ -4,12 +4,12 @@ import Gaffer.NodeAlgo
 
 def __recursiveChildren( root ):
 
-    result = [root]
-    if hasattr( root, "children" ):
-        for child in root.children():
-            result += __recursiveChildren( child )
-    
-    return result
+	result = [root]
+	if hasattr( root, "children" ):
+		for child in root.children():
+			result += __recursiveChildren( child )
+	
+	return result
 
 
 # gathers all fileName parameters
@@ -20,26 +20,26 @@ def __recursiveChildren( root ):
 # so it may need improvement
 def getTaskFileNames( taskPlug ):
 
-    # ASK: may not be appropriate to handle gracefully
-    # in case argument isn't a TaskPlug
-    result = []
-    if isinstance( taskPlug, GafferDispatch.TaskNode.TaskPlug ):
-        parentNode = taskPlug.parent()
-        nodes = Gaffer.NodeAlgo.upstreamNodes( parentNode ) + [parentNode]
+	# ASK: may not be appropriate to handle gracefully
+	# in case argument isn't a TaskPlug
+	result = []
+	if isinstance( taskPlug, GafferDispatch.TaskNode.TaskPlug ):
+		parentNode = taskPlug.parent()
+		nodes = Gaffer.NodeAlgo.upstreamNodes( parentNode ) + [parentNode]
 
-        children = []
-        for node in nodes:
-            if isinstance( node, Gaffer.Box ):
-                continue
-            children += __recursiveChildren( node )
-        
-        result = filter(
-            lambda x: "fileName" in x,
-            children
-        )
-        result = map(
-            lambda x: x["fileName"].getValue(),
-            result
-        )
+		children = []
+		for node in nodes:
+			if isinstance( node, Gaffer.Box ):
+				continue
+			children += __recursiveChildren( node )
+		
+		result = filter(
+			lambda x: "fileName" in x,
+			children
+		)
+		result = map(
+			lambda x: x["fileName"].getValue(),
+			result
+		)
 
-    return result
+	return result
